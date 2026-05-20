@@ -220,7 +220,7 @@ function setTokenCookie(res: any, token: any) {
   const cookieOptions = {
     httpOnly: true,
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    sameSite: (process.env.COOKIE_SAME_SITE || ' lax') as any,
+    sameSite: (process.env.COOKIE_SAMESITE || 'lax') as any,
     secure: process.env.COOKIE_SECURE === 'true'
   };
 
