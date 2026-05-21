@@ -1,5 +1,7 @@
 node_modules/
-database.sqlite
+
 .env
+
 config.json
-dist/
+
+dist
