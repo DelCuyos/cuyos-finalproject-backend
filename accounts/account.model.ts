@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes } from "sequelize";
 
 export default function model(sequelize: any) {
     const attributes = {
@@ -9,23 +9,24 @@ export default function model(sequelize: any) {
         lastName: { type: DataTypes.STRING, allowNull: false },
         acceptTerms: { type: DataTypes.BOOLEAN },
         role: { type: DataTypes.STRING, allowNull: false },
-        verificationToken: { type: DataTypes.STRING},
+        verificationToken: { type: DataTypes.STRING },
         verified: { type: DataTypes.DATE },
-        resetToken: { type: DataTypes.STRING},
+        resetToken: { type: DataTypes.STRING },
         resetTokenExpires: { type: DataTypes.DATE },
         passwordReset: { type: DataTypes.DATE },
         created: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
-        updated: { type: DataTypes.DATE},
+        updated: { type: DataTypes.DATE },
         isVerified: {
-        type: DataTypes. VIRTUAL,
-        get() { return !! (this.verified || this.passwordReset); }
-    }
-};
-const options = {
-    timestamps: false,
-    defaultScope: { attributes: { exclude: ['passwordHash'] } },
-    scopes: { withHash: { attributes: {}, } }
-};
-return sequelize.define('account', attributes, options);
+            type: DataTypes.VIRTUAL,
+            get() { return !!(this.verified || this.passwordReset); }
+        }
+    };
 
+    const options = {
+        timestamp: false,
+        defaultScope: { attributes: { exclude: ['passwordHash'] } },
+        scopes: { withHash: { attributes: {}, } }
+    };
+
+    return sequelize.define('account', attributes, options);
 }
