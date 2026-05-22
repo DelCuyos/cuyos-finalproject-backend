@@ -10,10 +10,12 @@ const app = express();
 
 const corsOptions = {
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-        const allowedOrigin = process.env.CORS_ORIGIN;
-        console.log('CORS check - origin:', origin, '| allowed:', allowedOrigin, '| NODE_ENV:', process.env.NODE_ENV);
+        const allowedOrigins = [
+            'https://cuyos-finalproject-frontend.onrender.com',
+            'http://localhost:4200'
+        ];
         
-        if (!origin || origin === allowedOrigin) {
+        if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS: ' + origin));
