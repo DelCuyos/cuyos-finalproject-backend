@@ -17,7 +17,7 @@ export default function model(sequelize: any) {
         created: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
         updated: { type: DataTypes.DATE},
         isVerified: {
-        type: DataTypes. VIRTUAL,
+        type: DataTypes.VIRTUAL,
         get() { return !! (this.verified || this.passwordReset); }
     }
 };

@@ -9,20 +9,14 @@ import swaggerDocs from './_helpers/swagger';
 const app = express();
 
 const corsOptions = {
-    origin: (origin, callback) => {
-        if (process.env.NODE_ENV === 'production') {
-            const allowedOrigin = process.env.CORS_ORIGIN;
-            if (origin === allowedOrigin) {
-                callback(null, true);
-            } else if (!origin) {
-                // Allow requests with no origin (mobile apps, curl requests)
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        } else {
-            // Development: allow all origins
+    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+        const allowedOrigin = process.env.CORS_ORIGIN;
+        console.log('CORS check - origin:', origin, '| allowed:', allowedOrigin, '| NODE_ENV:', process.env.NODE_ENV);
+        
+        if (!origin || origin === allowedOrigin) {
             callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS: ' + origin));
         }
     },
     credentials: true
